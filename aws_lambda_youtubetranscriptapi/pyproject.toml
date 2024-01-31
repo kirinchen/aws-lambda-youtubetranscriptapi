@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "aws-lambda-youtubetranscriptapi"
+version = "0.1.0"
+description = ""
+authors = ["kirin <kirin.chen1001@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+youtube-transcript-api = "^0.6.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
