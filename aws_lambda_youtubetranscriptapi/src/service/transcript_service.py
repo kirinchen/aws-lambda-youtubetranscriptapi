@@ -30,15 +30,20 @@ def video_id(value):
 
 
 def get_subtitles_text(yt_id) -> str:
-    transcripts = YouTubeTranscriptApi.list_transcripts(yt_id)
-    languages = [s.language_code for s in transcripts]
-    if len(languages) == 0:
-        return ""
-    subtitles = YouTubeTranscriptApi.get_transcript(yt_id, languages=[languages[0]])
-    text = ""
-    for i in subtitles:
-        text += i['text'] + os.linesep
-    return text
+    try:
+        transcripts = YouTubeTranscriptApi.list_transcripts(yt_id)
+        languages = [s.language_code for s in transcripts]
+        if len(languages) == 0:
+            return ""
+        subtitles = YouTubeTranscriptApi.get_transcript(yt_id, languages=[languages[0]])
+        text = ""
+        for i in subtitles:
+            text += i['text'] + os.linesep
+        return text
+    except Exception as e:  # work on python 3.x
+        e_ans = f'yt_id:{yt_id} Error: {e}'
+        print(e_ans)
+    return e_ans
 
 
 def get_subtitles_text_by_link(link) -> str:
@@ -55,8 +60,9 @@ def get_title(yt_id) -> str:
         video_title = video_title_e_list[0].text
         return video_title
     except Exception as e:  # work on python 3.x
-        print(f'yt_id:{yt_id} Error: {e}')
-        return ""
+        e_ans = f'yt_id:{yt_id} Error: {e}'
+        print(e_ans)
+        return e_ans
 
 
 def get_title_by_link(link) -> str:
