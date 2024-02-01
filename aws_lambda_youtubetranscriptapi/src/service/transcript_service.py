@@ -76,7 +76,8 @@ def get_yt_info_by_link(link) -> dict:
     print(f'yt_id:{yt_id}')
     return {
         "title": get_title(yt_id),
-        "subtitles": get_subtitles_text(yt_id)
+        "subtitles": get_subtitles_text(yt_id),
+        "yt_id": yt_id
     }
 
 
