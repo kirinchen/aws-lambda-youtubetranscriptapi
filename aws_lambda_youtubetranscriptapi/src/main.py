@@ -1,16 +1,38 @@
-# This is a sample Python script.
-
-# Press Alt+Shift+X to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import urllib
+from urllib import parse
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+Shift+B to toggle the breakpoint.
+def split_text(text: str, split_symbol: str = '\n') -> list:
+    return text.split(split_symbol)
 
 
-# Press the green button in the gutter to run the script.
+def lambda_handler(event, context):
+    function = event.get('function')
+    text = event.get('text')
+    print(text)
+    text = parse.unquote(text)
+    ans = None
+    if function == 'split_text':
+        ans = split_text(text)
+
+    return {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "function": function,
+        "body": ans
+    }
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    encode_test = parse.quote("""
+        a
+        b
+        c
+    """)
+    resp = lambda_handler({
+        "function": "split_text",
+        "text": encode_test
+    }, None)
+    print(resp)
