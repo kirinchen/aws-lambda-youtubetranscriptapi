@@ -13,6 +13,7 @@ def video_id(value):
     - http://www.youtube.com/watch?v=_oPAwA_Udwc&feature=feedu
     - http://www.youtube.com/embed/SA2iWivDJiE
     - http://www.youtube.com/v/SA2iWivDJiE?version=3&amp;hl=en_US
+    - https://youtube.com/shorts/J26zFgFwA1o?si=vtNJtvt86zJaKSN3
     """
     query = urlparse(value)
     if query.hostname == 'youtu.be':
@@ -25,6 +26,8 @@ def video_id(value):
             return query.path.split('/')[2]
         if query.path[:3] == '/v/':
             return query.path.split('/')[2]
+        if query.path.startswith('/shorts'):
+            return  query.path.split('/')[2]
     # fail?
     return None
 
@@ -85,4 +88,5 @@ if __name__ == '__main__':
     # print(get_subtitles_text("5l0lA9O498c"))
     # print(get_subtitles_text_by_link("https://youtu.be/X0GE1PeD0fk?si=1Hb1nJhW-KCkiWlC"))
     # print(get_title("X0GE1PeD0fk"))
-    print(get_yt_info_by_link("https://youtu.be/X0GE1PeD0fk?si=1Hb1nJhW-KCkiWlC"))
+    # print(get_yt_info_by_link("https://youtu.be/X0GE1PeD0fk?si=1Hb1nJhW-KCkiWlC"))
+    print(video_id("https://youtube.com/shorts/J26zFgFwA1o?si=vtNJtvt86zJaKSN3"))
